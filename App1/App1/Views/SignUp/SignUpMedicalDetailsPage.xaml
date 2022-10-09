@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.SignUpMedicalDetailsPage">
+    <ContentPage.Content>
+        <Grid ColumnSpacing="20">
+            <StackLayout>
+                <Label Text="ChronicallyTracking" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                <Label Text="Sign Up" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
+            </StackLayout>
+            <StackLayout Spacing="20" VerticalOptions="Center">
+                <Label Text="Tell us more about yourself..." TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+                
+                <StackLayout>
+                    <Label Text="I am a..." TextColor="Black" FontSize="Medium"  />
+                    <Picker x:Name="RelationPicker" Title="Select relation" SelectedItem="{Binding UserType, Mode=TwoWay}">
+                        <Picker.Items>
+                            <x:String>Person tracking own symptoms</x:String>
+                            <x:String>Caregiver</x:String>
+                            <x:String>Other</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+                <Label Text="Please pick a relation" TextColor="Red" IsVisible="{Binding UserTypeErrorVisible}"/>
+                <Entry x:Name="otherInput" Placeholder="Please state your relation." IsVisible="false"/>
+                <StackLayout>
+                    <Label Text="Diganoses" TextColor="Black" FontSize="Medium"/>
+                    <Entry Placeholder="Please seperate diganoses by commas" Text="{Binding Diganoses, Mode=TwoWay}"/>
+                </StackLayout>
+
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button BackgroundColor="Black" Text="Back" TextColor="White" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+                <Button BackgroundColor="LightGray" Text="Next" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding NextCommand}" />
+            </StackLayout>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

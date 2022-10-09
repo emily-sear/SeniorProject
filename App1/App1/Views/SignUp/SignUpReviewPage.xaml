@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.SignUpReviewPage">
+    <ContentPage.Content>
+        <Grid ColumnSpacing="20">
+            <StackLayout>
+                <Label Text="ChronicallyTracking" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                <Label Text="Sign Up" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
+            </StackLayout>
+            <StackLayout Spacing="20" VerticalOptions="Center">
+                <StackLayout>
+                    <Label Text="Personal Details" TextColor="Black" FontSize="Large"/>
+                    <Label Text="{Binding FullName}" TextColor="Black" FontSize="Medium"/>
+                    <Label Text="{Binding Email}" TextColor="Black" FontSize="Medium"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Diganoses" TextColor="Black" FontSize="Large"/>
+                    <Label Text="{Binding Diganoses}" TextColor="Black" FontSize="Medium"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Medications" TextColor="Black" FontSize="Large"/>
+                    <Label Text="{Binding Medications}" TextColor="Black" FontSize="Medium"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button BackgroundColor="Black" Text="Back" TextColor="White" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+                <Button BackgroundColor="LightGray" Text="Submit" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding SubmitCommand}"/>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

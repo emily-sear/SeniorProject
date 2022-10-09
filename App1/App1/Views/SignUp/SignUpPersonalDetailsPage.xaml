@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:App1.ViewModel" 
+             NavigationPage.HasNavigationBar="False"
+             x:Class="App1.SignUpPersonalDetailsPage">
+
+
+    <Grid>
+        <StackLayout>
+            <Label Text="ChronicallyTracking" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+            <Label Text="Sign Up" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
+        </StackLayout>
+        <StackLayout VerticalOptions="Center" Spacing="25">
+            <Entry Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First name"/>
+            <Label Text="First name is invalid" TextColor="Red" IsVisible="{Binding FirstNameErrorVisible}"/>
+            <Entry Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last name"/>
+            <Label Text="Last name is invalid" TextColor="Red" IsVisible="{Binding LastNameErrorVisible}"/>
+            <Entry Text="{Binding  Email, Mode=TwoWay}" Placeholder="Email"/>
+            <Label Text="Email is invalid" TextColor="Red" IsVisible="{Binding EmailErrorVisible}"/>
+            <Entry Text="{Binding ConfirmEmail, Mode=TwoWay}" Placeholder="Confirm Email"/>
+            <Label Text="Email is invalid" TextColor="Red" IsVisible="{Binding EmailErrorVisible}"/>
+            <Entry Placeholder="Password" IsPassword="True"/>
+            <Entry Placeholder="Confirm Password" IsPassword="True"/>
+            
+        </StackLayout>
+        <Button Command="{Binding NextCommand}" BackgroundColor="LightGray" Text="Next" TextColor="Black" VerticalOptions="End"/>
+    </Grid>
+
+</ContentPage>
