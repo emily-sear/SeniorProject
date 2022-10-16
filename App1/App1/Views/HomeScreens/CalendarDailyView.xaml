@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.CalendarDailyView"
+             xmlns:controls="clr-namespace:XamForms.Controls;assembly=XamForms.Controls.Calendar" >
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout>
+                    <controls:Calendar Scale=".9"
+                           SelectedBorderWidth="4"    
+                           ShowNumberOfWeek="False"  
+                           StartDay="Sunday"  
+                           MonthNavigationShow="True"
+                           TitleLabelTextColor="Black"  
+                           TitleLeftArrowTextColor="Black"
+                                       TitleRightArrowTextColor="Black"
+                                       SelectedBorderColor="Black"
+                           SelectedDate="{Binding SelectedDate}"
+                           MaxDate="{Binding MaxDate}"
+                           MinDate="{Binding MinDate}"
+                           DateCommand="{Binding DateChosen}"/>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Pain Scale" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
+
+                    <Slider Minimum="0" Maximum="10" Value="{Binding PainAmount}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Mood Scale" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
+
+                    <Slider Minimum="0" Maximum="10" Value="{Binding MoodAmount}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Fatigue Scale" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
+
+                    <Slider Minimum="0" Maximum="10" Value="{Binding FatigueAmount}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
+
+
+            </StackLayout>
+            <!-- Bottom Banner -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+
+                <StackLayout>
+                    <ImageButton Source="Home.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding HomescreenCommand}" ></ImageButton>
+                    <Label Text="Home" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout RelativeLayout.XConstraint=
+            "{ConstraintExpression 
+                Type=RelativeToView,
+                ElementName=dailyLog,
+                Constant=-90,
+                Property=X}" WidthRequest="70">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding NewLogCommand}"></ImageButton>
+                    <Label Text="New Log" TextColor="Black" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+                <StackLayout x:Name="dailyLog">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"></ImageButton>
+                    <Label Text="Daily Logs" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="print.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding PrintLogsCommand}"></ImageButton>
+                    <Label Text="Print log" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="Settings.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding SettingsCommand}"></ImageButton>
+                    <Label Text="Settings" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>

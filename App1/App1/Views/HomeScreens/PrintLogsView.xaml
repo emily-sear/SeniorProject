@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="App1.PrintLogsView">
+  <ContentPage.Content>
+      <Grid>
+
+            <StackLayout VerticalOptions="Start" Spacing="30">
+                <Label Text="Print Logs" FontSize="40" HorizontalOptions="Center"  TextColor="Black"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center"  Spacing="30">
+                    <DatePicker x:Name="startDate" HorizontalOptions="Center" MinimumDate="{Binding MinStartDate}" MaximumDate="{Binding MaxStartDate}" Date="{Binding StartDate, Mode=TwoWay}" Scale="1.5
+                                "/>
+                    <Label Text="To" FontSize="Title" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black"/>
+                    <DatePicker x:Name="endDate" HorizontalOptions="Center" MinimumDate="{Binding MinEndDate}" MaximumDate="{Binding MaxEndDate}" Date="{Binding EndDate, Mode=TwoWay}" Scale="1.5"/>
+                </StackLayout>
+            </StackLayout>
+
+                <StackLayout VerticalOptions="CenterAndExpand" Spacing="40">
+                    <Label Text="Check all below that you want to include in your print." HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <StackLayout>
+                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding OverviewCheckChanged}"/>
+                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding DailyOverviewCheckChanged}"/>
+                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding DailyIndepthCheckChanged}"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Overview" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
+                            <Label Text="Daily logs - Overviews" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
+                            <Label Text="Daily logs - Indepth" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
+                        </StackLayout>
+                    </StackLayout>
+                
+            </StackLayout>
+
+
+            <StackLayout VerticalOptions="End">
+                <Button Text="Print" FontSize="Title" VerticalOptions="End" Command="{Binding PrintButtonCommand}"></Button>
+                <!-- Bottom Banner -->
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+
+                    <StackLayout>
+                        <ImageButton Source="Home.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding HomeCommand}"></ImageButton>
+                        <Label Text="Home" TextColor="Black" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout RelativeLayout.XConstraint=
+            "{ConstraintExpression 
+                Type=RelativeToView,
+                ElementName=dailyLog,
+                Constant=-90,
+                Property=X}" WidthRequest="70">
+                        <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding NewLogCommand}"></ImageButton>
+                        <Label Text="New Log" TextColor="Black" HorizontalTextAlignment="Center"></Label>
+                    </StackLayout>
+                    <StackLayout x:Name="dailyLog">
+                        <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding DailyLogsCommand}"></ImageButton>
+                        <Label Text="Daily Logs" TextColor="Black" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout >
+                        <ImageButton Source="print.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"></ImageButton>
+                        <Label Text="Print log" TextColor="Black" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                    <StackLayout >
+                        <ImageButton Source="Settings.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding SettingsCommand}"></ImageButton>
+                        <Label Text="Settings" TextColor="Black" HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+            
+        </Grid>
+  </ContentPage.Content>
+</ContentPage>

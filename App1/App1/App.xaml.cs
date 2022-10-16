@@ -9,7 +9,7 @@ namespace App1
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new SettingsView());
         }
 
         protected override void OnStart()

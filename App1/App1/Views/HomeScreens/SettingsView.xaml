@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="App1.SettingsView">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout VerticalOptions="Center">
+                <Button Text="Account" VerticalOptions="Fill" />
+                <Button Text="Privacy &amp; Safety" VerticalOptions="Fill" />
+                <Button Text="Diagnoses" VerticalOptions="Fill" />
+                <Button Text="Medications" VerticalOptions="Fill" />
+            </StackLayout>
+            <!-- Bottom Banner -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+                <StackLayout>
+                    <ImageButton Source="Home.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding HomeCommand}"></ImageButton>
+                    <Label Text="Home" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout RelativeLayout.XConstraint=
+            "{ConstraintExpression 
+                Type=RelativeToView,
+                ElementName=dailyLog,
+                Constant=-90,
+                Property=X}" WidthRequest="70">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding NewLogCommand}"></ImageButton>
+                    <Label Text="New Log" TextColor="Black" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+                <StackLayout x:Name="dailyLog">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding DailyLogsCommand}"></ImageButton>
+                    <Label Text="Daily Logs" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="print.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding PrintLogsCommand}"></ImageButton>
+                    <Label Text="Print log" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="Settings.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent"></ImageButton>
+                    <Label Text="Settings" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+
+
+
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+
+
+</ContentPage>

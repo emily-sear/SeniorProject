@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.HomescreenView">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="50">
+                <StackLayout/>
+                <StackLayout>
+                    <Label Text="Most common symptom this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding MostCommonSymptom}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Average amount of pain this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgAmtOfPain}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Average mood of this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgMood}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Average amount of fatigue this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgFatigue}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                </StackLayout>
+                
+            </StackLayout>
+            
+            <!-- Bottom Banner -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+
+                <StackLayout>
+                    <ImageButton Source="Home.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" ></ImageButton>
+                    <Label Text="Home" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout RelativeLayout.XConstraint=
+            "{ConstraintExpression 
+                Type=RelativeToView,
+                ElementName=dailyLog,
+                Constant=-90,
+                Property=X}" WidthRequest="70">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding NewLogCommand}"></ImageButton>
+                    <Label Text="New Log" TextColor="Black" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+                <StackLayout x:Name="dailyLog">
+                    <ImageButton Source="log.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding DailyLogsCommand}"></ImageButton>
+                    <Label Text="Daily Logs" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="print.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding PrintLogsCommand}"></ImageButton>
+                    <Label Text="Print log" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+                <StackLayout >
+                    <ImageButton Source="Settings.png" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent" Command="{Binding SettingsCommand}"></ImageButton>
+                    <Label Text="Settings" TextColor="Black" HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+            
+
+    </ContentPage.Content>
+</ContentPage>
