@@ -10,9 +10,10 @@
             </StackLayout>
             <StackLayout Spacing="20" VerticalOptions="Center">
                 <Label Text="Tell us more about yourself..." TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
-                
+
                 <StackLayout>
                     <Label Text="I am a..." TextColor="Black" FontSize="Medium"  />
+                    <Label Text="Please pick a relation." TextColor="Red" FontSize="Medium" IsVisible="{Binding UserTypeErrorVisible}"/>
                     <Picker x:Name="RelationPicker" Title="Select relation" SelectedItem="{Binding UserType, Mode=TwoWay}">
                         <Picker.Items>
                             <x:String>Person tracking own symptoms</x:String>
@@ -21,7 +22,6 @@
                         </Picker.Items>
                     </Picker>
                 </StackLayout>
-                <Label Text="Please pick a relation" TextColor="Red" IsVisible="{Binding UserTypeErrorVisible}"/>
                 <Entry x:Name="otherInput" Placeholder="Please state your relation." IsVisible="false"/>
                 <StackLayout>
                     <Label Text="Diganoses" TextColor="Black" FontSize="Medium"/>

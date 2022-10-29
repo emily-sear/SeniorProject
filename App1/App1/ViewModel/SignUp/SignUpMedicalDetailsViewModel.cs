@@ -43,6 +43,8 @@ namespace App1.ViewModel
             this.Navigation = navigation;
             BackCommand = new Command(OnBack);
             NextCommand = new Command(OnNext);
+            this.userTypeErrorVisible = false;
+            OnPropertyChanged(propertyName: "UserTypeErrorVisible");
 
             if(MedicalDetails.diganoses != null && MedicalDetails.diganoses.Count > 0)
             {
@@ -108,9 +110,13 @@ namespace App1.ViewModel
                 List<string> diganosesList = this.diganoses.Split(',').ToList();
 
                 MedicalDetails.diganoses = diganosesList;
+            } else
+            {
+                MedicalDetails.diganoses = new List<string>();
             }
             if (!String.IsNullOrEmpty(this.userType))
             {
+                this.userTypeErrorVisible = false;
                 if (this.userType == "Other")
                 {
                     User.userType = User.userTypes.OTHER;
@@ -124,6 +130,10 @@ namespace App1.ViewModel
                     User.userType = User.userTypes.PATIENT;
                 }
                 await Navigation.PushAsync(new SignUpMedicationsPage());
+            } else
+            {
+                this.userTypeErrorVisible = true;
+                OnPropertyChanged(propertyName: "UserTypeErrorVisible");
             }
 
         }

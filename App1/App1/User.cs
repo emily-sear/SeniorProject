@@ -13,6 +13,7 @@ namespace App1
         public static string lastName { get; set; }
         public static string email { get; set; }
         public static userTypes userType;
+        public static Boolean inDatabase { get; set; }
         public enum userTypes { UNDEFINED, PATIENT, CAREGIVER, OTHER }
 
 

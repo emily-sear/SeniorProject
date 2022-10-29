@@ -50,11 +50,11 @@ namespace App1.ViewModel
                 {
                     if(i == (this.medications.Count - 1))
                     {
-                        medicationsInList += medications[i].getName();
+                        medicationsInList += medications[i].Name;
                     }
                     else
                     {
-                        medicationsInList += medications[i].getName() + ", ";
+                        medicationsInList += medications[i].Name + ", ";
                     }
                 }
                 return medicationsInList;
@@ -113,6 +113,7 @@ namespace App1.ViewModel
         }
         private async void OnNext()
         {
+            
             if(!String.IsNullOrEmpty(this.medicationName))
             {
                 Medication med = new Medication(medicationName, medicationDosage, medicationStartDate, medicationOrderingDoctor);
@@ -120,7 +121,7 @@ namespace App1.ViewModel
             }
 
             MedicalDetails.medications = this.medications;
-
+            Console.WriteLine("made it to here");
 
             await Navigation.PushAsync(new SignUpReviewPage());
 

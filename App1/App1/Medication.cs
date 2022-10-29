@@ -6,31 +6,31 @@ namespace App1
 {
     public class Medication
     {
-        private string name { get; set; }
-        private string dosage { get; set; }
-        private DateTime dateStarted { get; set; }
-        private string orderingDoctor { get; set; }
+        private string name;
+        private string dosage;
+        private DateTime dateStarted;
+        private string orderingDoctor;
+
+        public string Name { get => name; set => name = value; }
+        public string Dosage { get => dosage; set => dosage = value; }
+        public DateTime DateStarted { get => dateStarted; set => dateStarted = value; }
+        public string OrderingDoctor { get => orderingDoctor; set => orderingDoctor = value; }
 
         public Medication(string name, string dosage, DateTime dateStarted, string orderingDoctor)
         {
-            this.name = name;
-            this.dosage = dosage;
-            this.dateStarted = dateStarted;
-            this.orderingDoctor = orderingDoctor;
+            this.Name = name;
+            this.Dosage = dosage;
+            this.DateStarted = dateStarted;
+            this.OrderingDoctor = orderingDoctor;
 
         }
 
         public void display()
         {
-            Console.WriteLine("Name: " + this.name);
-            Console.WriteLine("Dosage: " + this.dosage);
-            Console.WriteLine("Date Started: " + this.dateStarted.ToString());
-            Console.WriteLine("Ordering Doctor: " + this.orderingDoctor);
-        }
-
-        public string getName()
-        {
-            return this.name;
+            Console.WriteLine("Name: " + this.Name);
+            Console.WriteLine("Dosage: " + this.Dosage);
+            Console.WriteLine("Date Started: " + this.DateStarted.ToString());
+            Console.WriteLine("Ordering Doctor: " + this.OrderingDoctor);
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace App1.ViewModel
@@ -25,11 +26,42 @@ namespace App1.ViewModel
             }
         }
 
+        public Boolean IsDiganosesNullOrEmpty
+        {
+            get
+            {
+                if(MedicalDetails.diganoses != null || MedicalDetails.diganoses.Count != 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public Boolean IsMedicationsNullOrEmpty
+        {
+            get
+            {
+                if(MedicalDetails.medications != null || MedicalDetails.medications.Count != 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
         public string Diganoses
         {
             get
             {
                 string names = "";
+               
                 for(int i = 0; i < MedicalDetails.diganoses.Count; i++)
                 {
                     if(i == (MedicalDetails.diganoses.Count - 1))
@@ -54,11 +86,11 @@ namespace App1.ViewModel
                 {
                     if (i == (MedicalDetails.medications.Count - 1))
                     {
-                        medicationsInList += MedicalDetails.medications[i].getName();
+                        medicationsInList += MedicalDetails.medications[i].Name;
                     }
                     else
                     {
-                        medicationsInList += MedicalDetails.medications[i].getName() + ", ";
+                        medicationsInList += MedicalDetails.medications[i].Name + ", ";
                     }
                 }
                 return medicationsInList;
@@ -71,6 +103,8 @@ namespace App1.ViewModel
         public SignUpReviewViewModel(INavigation navaigation)
         {
             Navigation = navaigation;
+            OnPropertyChanged(propertyName: "IsMedicationsNullOrEmpty");
+            OnPropertyChanged(propertyName: "IsDiganosesNullOrEmpty");
             BackCommand = new Command(OnBack);
             SubmitCommand = new Command(OnSubmit);
         }
@@ -82,7 +116,13 @@ namespace App1.ViewModel
 
         private async void OnSubmit()
         {
-            // TODO: add details to store
+            RestService restService = new RestService();
+            await restService.PostAccountCreationDataAsync();
+
+            if (User.inDatabase == true)
+            {
+                await Navigation.PushAsync(new HomescreenView());
+            }
         }
     }
 }

@@ -15,11 +15,11 @@
                     <Label Text="{Binding Email}" TextColor="Black" FontSize="Medium"/>
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Diganoses" TextColor="Black" FontSize="Large"/>
+                    <Label Text="Diganoses" TextColor="Black" FontSize="Large" IsVisible="{Binding IsDiganosesNullOrEmpty}"/>
                     <Label Text="{Binding Diganoses}" TextColor="Black" FontSize="Medium"/>
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Medications" TextColor="Black" FontSize="Large"/>
+                    <Label Text="Medications" TextColor="Black" FontSize="Large" IsVisible="{Binding IsMedicationsNullOrEmpty}"/>
                     <Label Text="{Binding Medications}" TextColor="Black" FontSize="Medium"/>
                 </StackLayout>
             </StackLayout>
