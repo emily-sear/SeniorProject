@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.MedicationsPageView">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout VerticalOptions="Start" >
+                <Label Text="ChronicallyTracking" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                <Label Text="Daily Log" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
+                <ProgressBar Progress="0.5" ProgressColor="Blue"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="Center">
+
+                <Label Text="Medications" TextColor="Black" FontSize="Large" Margin="5,10,0,0"/>
+                <Label Text="{Binding MedicationsLabel}" TextColor="Black" FontSize="Medium" Margin="5,0,0,0" />
+                <Frame>
+                    <StackLayout>
+                        <Entry Placeholder="Name of medication" Text="{Binding MedicationName, Mode=TwoWay}"/>
+
+                        <Entry Placeholder="Time Medication Taken" Text="{Binding TimeTaken, Mode=TwoWay}"/>
+                        <Entry Placeholder="Dosage" Text="{Binding Dosage, Mode=TwoWay}"/>
+                        <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Is this a daily medication?" TextColor="Black" FontSize="Medium"/>
+                        <StackLayout Orientation="Horizontal" Spacing="50" HorizontalOptions="Center">
+                            <Button x:Name="yesButton" BackgroundColor="LightGray" Text="Yes" TextColor="Black" BorderWidth="2" BorderColor="Transparent" Clicked="yesButton_Clicked" Command="{Binding YesCommand}"/>
+                            <Button x:Name="noButton" BackgroundColor="LightGray" Text="No" TextColor="Black" BorderWidth="2" BorderColor="Transparent" Clicked="noButton_Clicked" Command="{Binding NoCommand}"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Notes" FontSize="Medium" TextColor="Black"/>
+                            <Editor AutoSize="TextChanges" MaxLength="300" Text="{Binding Notes, Mode=TwoWay}"/>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+                <Button Text="Add another medication +" TextColor="Blue" FontSize="Medium" BackgroundColor="Transparent" HorizontalOptions="Center" Command="{Binding AddAnotherCommand}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button BackgroundColor="LightGray" Text="Back" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+                <Button BackgroundColor="LightGray" Text="Next" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding NextCommand}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

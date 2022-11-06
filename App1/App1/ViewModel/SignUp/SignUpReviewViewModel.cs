@@ -104,7 +104,7 @@ namespace App1.ViewModel
         {
             Navigation = navaigation;
             OnPropertyChanged(propertyName: "IsMedicationsNullOrEmpty");
-            OnPropertyChanged(propertyName: "IsDiganosesNullOrEmpty");
+            OnPropertyChanged(propertyName: "IsDiganosesNullOrEmpty");       
             BackCommand = new Command(OnBack);
             SubmitCommand = new Command(OnSubmit);
         }

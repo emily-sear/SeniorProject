@@ -54,6 +54,7 @@ namespace App1.ViewModel
             SettingsCommand = new Command(OnSettings);
             PrintLogsCommand = new Command(OnPrintLogs);
             DailyLogsCommand = new Command(OnDailyLogs);
+            NewLogCommand = new Command(OnNewLogs);
         }
         private async void OnSettings()
         {
@@ -62,9 +63,8 @@ namespace App1.ViewModel
 
         private async void OnNewLogs()
         {
-            Console.WriteLine("made it to the new logs button");
+            await Navigation.PushAsync(new LevelPageView());
         }
-
         private async void OnDailyLogs()
         {
             await Navigation.PushAsync(new CalendarDailyView());

@@ -15,11 +15,9 @@ namespace App1
             InitializeComponent();
         }
 
-        private  void LoginButtonClicked(object sender, EventArgs e)
+        private async void LoginButtonClicked(object sender, EventArgs e)
         {
-            RestService restService = new RestService();
-/*            restService.PostDataAsync();*/
-            Console.WriteLine("Rest Service Completed");
+            await Navigation.PushAsync(new HomescreenView());
         }
 
         private async void CreateNewAccountButtonClicked(object sender, EventArgs e)

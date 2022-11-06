@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.ReviewPageView">
+    <ContentPage.Content>
+        <Grid ColumnSpacing="20">
+            <StackLayout VerticalOptions="Start" >
+                <Label Text="ChronicallyTracking" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                <Label Text="Daily Log" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
+                <ProgressBar Progress=".75" ProgressColor="Blue"/>
+            </StackLayout>
+
+            <StackLayout Spacing="20" VerticalOptions="Center">
+                <StackLayout>
+                    <Label Text="Levels" TextColor="Black" FontSize="Large"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Pain Level: " TextColor="Black" FontSize="Medium"/>
+                        <Label Text="{Binding PainLevel}" TextColor="Black" FontSize="Medium"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Mood Level: " TextColor="Black" FontSize="Medium"/>
+                        <Label Text="{Binding MoodLevel}" TextColor="Black" FontSize="Medium"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Fatigue Level: " TextColor="Black" FontSize="Medium"/>
+                        <Label Text="{Binding FatigueLevel}" TextColor="Black" FontSize="Medium"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Symptoms" TextColor="Black" FontSize="Large" IsVisible="{Binding IsSymptomsNotNullOrEmpty}"/>
+                    <Label Text="{Binding Symptoms}" TextColor="Black" FontSize="Medium"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Medications" TextColor="Black" FontSize="Large" IsVisible="{Binding IsMedicationsNotNullOrEmpty}"/>
+                    <Label Text="{Binding Medications}" TextColor="Black" FontSize="Medium"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button BackgroundColor="LightGray" Text="Back" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+                <Button BackgroundColor="LightGray" Text="Submit" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding SubmitCommand}"/>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

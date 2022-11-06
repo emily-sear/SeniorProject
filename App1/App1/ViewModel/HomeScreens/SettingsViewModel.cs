@@ -31,7 +31,7 @@ namespace App1.ViewModel
 
         private async void OnNewLogs()
         {
-            Console.WriteLine("made it to the new logs button");
+            await Navigation.PushAsync(new LevelPageView());
         }
 
         private async void OnDailyLogs()

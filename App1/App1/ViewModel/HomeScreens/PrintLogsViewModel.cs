@@ -89,6 +89,7 @@ namespace App1.ViewModel
             SettingsCommand = new Command(OnSettings);
             HomeCommand = new Command(OnHome);
             DailyLogsCommand = new Command(OnDailyLogs);
+            NewLogCommand = new Command(OnNewLogs);
             this.endDate = DateTime.Today;
             this.startDate = DateTime.Today;
         }
@@ -101,9 +102,13 @@ namespace App1.ViewModel
         {
             await Navigation.PushAsync(new HomescreenView());
         }
-        private async void OnSettings()
+
+        private async void OnNewLogs()
         {
-            Console.WriteLine("made it");
+            await Navigation.PushAsync(new LevelPageView());
+        }
+        private async void OnSettings()
+        { 
             await Navigation.PushAsync(new SettingsView());
         }
     }
