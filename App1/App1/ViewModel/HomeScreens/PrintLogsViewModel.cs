@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 using Xamarin.Forms;
@@ -90,10 +91,21 @@ namespace App1.ViewModel
             HomeCommand = new Command(OnHome);
             DailyLogsCommand = new Command(OnDailyLogs);
             NewLogCommand = new Command(OnNewLogs);
+            PrintButtonCommand = new Command(OnPrint);
             this.endDate = DateTime.Today;
             this.startDate = DateTime.Today;
         }
 
+        private async void OnPrint()
+        {
+            Console.WriteLine(DateTime.Today);
+            Console.WriteLine(this.endDate);
+            Console.WriteLine(this.startDate);
+            RestService restService = new RestService();
+            await restService.GetDailyLogDataAsync("{\"Datetime\": { \"$date\": {\"$gt\":\"" + makePrettyDate(startDate, -1) + "\", \"$lt\": \"" + makePrettyDate(this.endDate, 1) + "\"}}}");
+
+            
+        }
         private async void OnDailyLogs()
         {
             await Navigation.PushAsync(new CalendarDailyView());
@@ -110,6 +122,29 @@ namespace App1.ViewModel
         private async void OnSettings()
         { 
             await Navigation.PushAsync(new SettingsView());
+        }
+       
+        private String makePrettyDate(DateTime oldDate, double addSubtract)
+        {
+            DateTime date = oldDate.AddDays(addSubtract);
+            String dateString = date.Year + "-";
+            if(date.Month < 10)
+            {
+                dateString += "0" + date.Month + "-";
+            } else
+            {
+                dateString += date.Month + "-";
+            }
+
+            if(date.Day < 10)
+            {
+                dateString += "0" + date.Day;
+            }
+            else
+            {
+                dateString += date.Day;
+            }
+            return dateString;
         }
     }
 }

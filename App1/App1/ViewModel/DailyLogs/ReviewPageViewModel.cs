@@ -68,12 +68,15 @@ namespace App1.ViewModel
 
         private async void OnBack()
         {
+
             await Navigation.PushAsync(new MedicationsPageView());
         }
 
         private async void OnSubmit()
         {
-
+            RestService restService = new RestService();
+            await restService.PostDailyLogDataAsync();
+            await Navigation.PushAsync(new HomescreenView());
         }
     }
 }

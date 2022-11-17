@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace App1.ViewModel
@@ -12,6 +13,7 @@ namespace App1.ViewModel
         private double painAmount;
         private double moodAmount;
         private double fatigueAmount;
+        private Task<String> getResponse;
         public INavigation Navigation { get; }
         public Command SettingsCommand { get; }
         public Command NewLogCommand { get; }
@@ -20,33 +22,33 @@ namespace App1.ViewModel
 
         public double PainAmount
         {
-            get
+            get => this.painAmount;
+            set
             {
-                // TODO: get pain amount 
-                return 5;
+                this.painAmount = value;
+                OnPropertyChanged("PainAmount");
             }
-            set => this.painAmount = value;
         }
 
         public double MoodAmount
         {
-            get
+            get => this.moodAmount;
+            set
             {
-                // TODO: get mood amount 
-                return 5;
+                this.moodAmount = value;
+                OnPropertyChanged("MoodAmount");
             }
-            set => this.moodAmount = value;
 
         }
 
         public double FatigueAmount
         {
-            get
+            get => this.fatigueAmount;
+            set
             {
-                // TODO: fatigue amount 
-                return 5;
+                this.fatigueAmount = value;
+                OnPropertyChanged("FatigueAmount");
             }
-            set => this.fatigueAmount = value;
         }
 
         public String MaxDate
@@ -81,8 +83,19 @@ namespace App1.ViewModel
             HomescreenCommand = new Command(OnHome);
             PrintLogsCommand = new Command(OnPrintLogs);
             DateChosen = new Command(OnDateChosen);
+
+
         }
 
+        public async void getDailyLog()
+        {
+            RestService restService = new RestService();
+            await restService.GetDailyLogDataAsync("{\"Email\": \"esear@cuw.edu\"}");
+            this.FatigueAmount = CalendarObject.fatigueScale;
+            this.MoodAmount = CalendarObject.moodScale;
+            this.PainAmount = CalendarObject.painScale;
+
+        }
         private void OnDateChosen()
         {
             OnPropertyChanged(propertyName: "SelectedDate");

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 
 namespace App1
 {
@@ -21,49 +22,44 @@ namespace App1
             this.client = new HttpClient();
         }
 
-        public async void RefreshDataAsync () 
+        public async Task<String> GetDailyLogDataAsync(String query)
         {
-            Uri uri = new Uri(string.Format("https://ga0f66930313625-userdatabase.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/test/test"));
-            HttpResponseMessage response = await client.GetAsync(uri);
-
-            if(response.IsSuccessStatusCode)
+            string url = "https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs";
+            if (query != "")
             {
-                string content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(content);
+                url += "?q=" + query;
             }
-        }
-
-        public async void GetDailyLogDataAsync()
-        {
-            Uri uri = new Uri("https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs");
-            var authenticationString = "{admin}:{Rainbowfirl4321;}";
-            var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
-
-            var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
-          //requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
-
-            //make the request
-            var task = client.SendAsync(requestMessage);
-            var response = task.Result;
-            response.EnsureSuccessStatusCode();
-            string responseBody = response.Content.ReadAsStringAsync().Result;
+            Uri uri = new Uri(url);
+            Console.WriteLine(url);
+            HttpResponseMessage response = await client.GetAsync(uri);
+   
+            var responseBody = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
             Console.WriteLine(responseBody);
+/*            CalendarObject.fatigueScale =  responseBody["items"][0]["value"]["FatigueScale"].Value<Double>();
+            CalendarObject.moodScale = responseBody["items"][0]["value"]["MoodScale"].Value<Double>();
+            CalendarObject.painScale = responseBody["items"][0]["value"]["PainScale"].Value<Double>();
+            Console.WriteLine("Finished");*/
+            return "";
         }
         public async Task<Boolean> PostDailyLogDataAsync()
         {
-            Uri uri = new Uri("https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/dailylogs/");
+            Uri uri = new Uri("https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs");
             StringContent content = new StringContent(JsonConvert.SerializeObject(new
             {
+                Email = "esear@cuw.edu",
+                OverallScale = DailyLog.OverallScale,
+                PainScale = DailyLog.PainScale,
+                MoodScale = DailyLog.MoodScale, 
+                FatigueScale = DailyLog.FatigueScale,
+                AvgHeartRate = DailyLog.AvgHeartRate,
+                OnPeriod = DailyLog.OnPeriod,
+                Datetime = DailyLog.CurrentDate,
+                Medications = DailyLog.Medications,
+                Symptoms = DailyLog.Symptoms
 
             }), Encoding.UTF8, "application/json") ;
             HttpResponseMessage response = await client.PostAsync(uri, content);
-            if (response.IsSuccessStatusCode)
-            {
-
-                Console.WriteLine("We fucking did it");
-                Console.WriteLine("We fucking did it");
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine("There was an error with the database");
                 Console.WriteLine(response);

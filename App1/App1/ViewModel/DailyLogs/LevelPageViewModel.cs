@@ -10,8 +10,10 @@ namespace App1.ViewModel
         private double painScale;
         private double moodScale;
         private double fatigueScale;
+        private double overallScale;
         private double avgHeartRate;
         private Boolean onPeriod;
+
         private LevelPageView levelPageView;
         public INavigation Navigation { get; }
         public Command NextCommand { get; }
@@ -45,6 +47,16 @@ namespace App1.ViewModel
                 OnPropertyChanged(propertyName: "FatigueValue"); 
             }
         }
+        public double OverallScale
+        {
+            get => overallScale;
+            set
+            {
+                overallScale = value;
+                OnPropertyChanged(propertyName: "OverallScale");
+            }
+        }
+
         public double AvgHeartRate
         {
             get => avgHeartRate;
@@ -89,7 +101,11 @@ namespace App1.ViewModel
                 PainScale = DailyLog.PainScale;
                 MoodScale = DailyLog.MoodScale;
                 FatigueScale = DailyLog.FatigueScale;
-                AvgHeartRate = DailyLog.AvgHeartRate;
+                OverallScale = DailyLog.OverallScale;
+                if(DailyLog.AvgHeartRate != 0)
+                {
+                    AvgHeartRate = DailyLog.AvgHeartRate;
+                }
                 OnPeriod = DailyLog.OnPeriod;
             } 
             this.Navigation = navigation;
@@ -103,6 +119,7 @@ namespace App1.ViewModel
             DailyLog.PainScale = this.painScale;
             DailyLog.MoodScale = this.moodScale;
             DailyLog.FatigueScale = this.fatigueScale;
+            DailyLog.OverallScale = this.overallScale;
             DailyLog.AvgHeartRate = this.avgHeartRate;
             DailyLog.OnPeriod = this.onPeriod;
             DailyLog.ValuesSet = true;

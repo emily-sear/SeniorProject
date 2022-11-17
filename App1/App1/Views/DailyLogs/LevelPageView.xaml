@@ -40,7 +40,16 @@
 
                         <Slider Minimum="0" Maximum="10" Value="{Binding FatigueScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
                     </StackLayout>
-                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Are you on your period?" TextColor="Black" FontSize="Medium"/>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Overall Level" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
+
+                    <Slider Minimum="0" Maximum="10" Value="{Binding OverallScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Are you on your period?" TextColor="Black" FontSize="Medium"/>
                     <StackLayout Orientation="Horizontal" Spacing="50" HorizontalOptions="Center">
                         <Button x:Name="yesButton" BackgroundColor="LightGray" Text="Yes" TextColor="Black" BorderWidth="2" Clicked="yesButton_Clicked"  Command="{Binding YesCommand}"/>
                         <Button x:Name="noButton" BackgroundColor="LightGray" Text="No" TextColor="Black" BorderWidth="2" Clicked="noButton_Clicked" Command="{Binding NoCommand}"/>

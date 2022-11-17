@@ -17,7 +17,17 @@ namespace App1
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            BindingContext = new ViewModel.CalendarDailyViewModel(Navigation);
+            try
+            {
+                ViewModel.CalendarDailyViewModel calendarViewModel = new ViewModel.CalendarDailyViewModel(Navigation);
+                calendarViewModel.getDailyLog();
+                BindingContext = calendarViewModel;
+                
+            } catch(Exception e)
+            {
+                Console.WriteLine("we fucked up");
+            }
+            
         }
     }
 }

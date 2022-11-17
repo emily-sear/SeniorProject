@@ -17,8 +17,7 @@ namespace App1
 
         private async void LoginButtonClicked(object sender, EventArgs e)
         {
-            RestService rest = new RestService();
-            rest.GetDailyLogDataAsync();
+            RestService restService = new RestService();
             await Navigation.PushAsync(new HomescreenView());
         }
 

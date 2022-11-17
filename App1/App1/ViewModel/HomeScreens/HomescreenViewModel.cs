@@ -18,33 +18,34 @@ namespace App1.ViewModel
         {
             get
             {
-                return "Migraines";
+                if (DailyLog.Symptoms != null && DailyLog.Symptoms.Count > 0)
+                {
+                    return DailyLog.Symptoms[0].NameOfSymptom;
+                }
+                return "";
             }
         }
-        public int AvgAmtOfPain
+        public Double AvgAmtOfPain
         {
             get
             {
-                // TODO: get the average amount of pain
-                return 5;
-            }
-        }
-
-        public int AvgMood
-        {
-            get
-            {
-                // TODO: get the average mood from this week
-                return 5; 
+                return DailyLog.PainScale;
             }
         }
 
-        public int AvgFatigue
+        public Double AvgMood
         {
             get
             {
-                // TODO: get the average fatigue from this week
-                return 5;
+                return DailyLog.MoodScale;
+            }
+        }
+
+        public Double AvgFatigue
+        {
+            get
+            {
+                return DailyLog.FatigueScale;
             }
         }
 

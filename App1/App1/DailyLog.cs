@@ -12,6 +12,7 @@ namespace App1
         public static double PainScale { get; set; }
         public static double MoodScale { get; set; }
         public static double FatigueScale { get; set; }
+        public static double OverallScale { get; set; }
         public static double AvgHeartRate { get; set; }
         public static Boolean OnPeriod { get; set; }
 
@@ -21,7 +22,7 @@ namespace App1
         { 
             get
             {
-                return DateTime.Now;
+                return DateTime.Today;
             } 
         }
     }
