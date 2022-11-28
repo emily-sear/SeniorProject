@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-
+using PdfSharpCore.Pdf;
+using PdfSharpCore.Drawing;
+using PdfSharp.Fonts;
+using PdfSharp.Internal;
+using PdfSharp.SharpZipLib;
 using Xamarin.Forms;
+using System.IO;
+using Xamarin.Essentials;
+
+[assembly: ExportFont("verdana.tff", Alias="Verdana")]
 
 namespace App1.ViewModel
 {
@@ -101,10 +109,30 @@ namespace App1.ViewModel
             Console.WriteLine(DateTime.Today);
             Console.WriteLine(this.endDate);
             Console.WriteLine(this.startDate);
-            RestService restService = new RestService();
-            await restService.GetDailyLogDataAsync("{\"Datetime\": { \"$date\": {\"$gt\":\"" + makePrettyDate(startDate, -1) + "\", \"$lt\": \"" + makePrettyDate(this.endDate, 1) + "\"}}}");
+            /*            RestService restService = new RestService();
+                        await restService.GetDailyLogDataAsync("{\"Datetime\": { \"$date\": {\"$gt\":\"" + makePrettyDate(startDate, -1) + "\", \"$lt\": \"" + makePrettyDate(this.endDate, 1) + "\"}}}");*/
+            var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+            if(status != PermissionStatus.Granted)
+            {
+                var statusRequest = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                
+             
+            }
+            status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
+            if(status != PermissionStatus.Granted)
+            {
+               var statusRequestRead = await Permissions.RequestAsync<Permissions.StorageRead>();
+            }
 
-            
+            PdfDocument MyPDF = new PdfDocument();
+            PdfPage page = MyPDF.Pages.Add();
+            XGraphics Mygraphics = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Verdana", 100);
+            Mygraphics.DrawString("Hello, World!", font, XBrushes.Black,
+                new XRect(0, 0, page.Width, 0));
+            IFileService service = DependencyService.Get<IFileService>();
+            service.Save(MyPDF, "HelloWorld.pdf");
+
         }
         private async void OnDailyLogs()
         {
