@@ -108,7 +108,7 @@ namespace App1.ViewModel
 
         private async void OnNewLogs()
         {
-            await Navigation.PushAsync(new LevelPageView());
+            await Navigation.PushAsync(new LevelPageView(new DailyLog()));
         }
 
         private async void OnHome()

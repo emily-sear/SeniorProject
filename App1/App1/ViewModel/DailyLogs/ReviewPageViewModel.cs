@@ -34,13 +34,15 @@ namespace App1.ViewModel
                 return !String.IsNullOrEmpty(this.symptoms);
             }
         }
-        public ReviewPageViewModel(INavigation navigation)
+        private DailyLog dailyLog;
+        public ReviewPageViewModel(INavigation navigation, DailyLog dailyLog)
         {
+            this.dailyLog = dailyLog;
             this.Navigation = navigation;
-            this.painLevel = DailyLog.PainScale;
-            this.moodLevel = DailyLog.MoodScale;
-            this.fatigueLevel = DailyLog.FatigueScale;
-            foreach(SymptomDailyLog symptom in DailyLog.Symptoms)
+            this.painLevel = dailyLog.PainScale;
+            this.moodLevel = dailyLog.MoodScale;
+            this.fatigueLevel = dailyLog.FatigueScale;
+            foreach(SymptomDailyLog symptom in dailyLog.Symptoms)
             {
                 if (String.IsNullOrEmpty(this.symptoms))
                 {
@@ -51,7 +53,7 @@ namespace App1.ViewModel
                     this.symptoms += ", " + symptom.NameOfSymptom;
                 }
             }
-            foreach(MedicationDailyLog medication in DailyLog.Medications)
+            foreach(MedicationDailyLog medication in dailyLog.Medications)
             {
                 if(String.IsNullOrEmpty(this.medications))
                 {
@@ -69,13 +71,13 @@ namespace App1.ViewModel
         private async void OnBack()
         {
 
-            await Navigation.PushAsync(new MedicationsPageView());
+            await Navigation.PushAsync(new MedicationsPageView(this.dailyLog));
         }
 
         private async void OnSubmit()
         {
             RestService restService = new RestService();
-            await restService.PostDailyLogDataAsync();
+            await restService.PostDailyLogDataAsync(this.dailyLog);
             await Navigation.PushAsync(new HomescreenView());
         }
     }

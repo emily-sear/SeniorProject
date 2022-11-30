@@ -18,18 +18,15 @@ namespace App1.ViewModel
         {
             get
             {
-                if (DailyLog.Symptoms != null && DailyLog.Symptoms.Count > 0)
-                {
-                    return DailyLog.Symptoms[0].NameOfSymptom;
-                }
+
                 return "";
             }
         }
         public Double AvgAmtOfPain
         {
-            get
-            {
-                return DailyLog.PainScale;
+            get { 
+            
+                return 0;
             }
         }
 
@@ -37,7 +34,7 @@ namespace App1.ViewModel
         {
             get
             {
-                return DailyLog.MoodScale;
+                return 0;
             }
         }
 
@@ -45,7 +42,7 @@ namespace App1.ViewModel
         {
             get
             {
-                return DailyLog.FatigueScale;
+                return 0;
             }
         }
 
@@ -64,7 +61,7 @@ namespace App1.ViewModel
 
         private async void OnNewLogs()
         {
-            await Navigation.PushAsync(new LevelPageView());
+            await Navigation.PushAsync(new LevelPageView(new DailyLog()));
         }
         private async void OnDailyLogs()
         {

@@ -44,12 +44,14 @@ namespace App1.ViewModel
         public string Placement { get => placement; set => placement = value; }
         public bool DailyLife { get => dailyLife; set => dailyLife = value; }
         public string Notes { get => notes; set => notes = value; }
+        private DailyLog dailyLog;
 
-        public SymptomsPageViewModel(INavigation navigation, SymptomsPageView symptomsPageView)
+        public SymptomsPageViewModel(INavigation navigation, DailyLog dailyLog, SymptomsPageView symptomsPageView)
         {
-            if(DailyLog.SymptomsSet)
+            this.dailyLog = dailyLog;
+            if(dailyLog.SymptomsSet)
             {
-                foreach(SymptomDailyLog symptom in DailyLog.Symptoms)
+                foreach(SymptomDailyLog symptom in dailyLog.Symptoms)
                 {
                     this.SymptomsLabel = symptom.NameOfSymptom;
                 }
@@ -71,14 +73,14 @@ namespace App1.ViewModel
                 SymptomDailyLog symptom = new SymptomDailyLog(this.symptomName, this.severeness, this.timeframe, this.dailyLife, this.placement, this.notes);
                 this.symptoms.Add(symptom);
             }
-            DailyLog.SymptomsSet = true;
-            DailyLog.Symptoms = this.symptoms;
-            await Navigation.PushAsync(new MedicationsPageView());
+            this.dailyLog.SymptomsSet = true;
+            this.dailyLog.Symptoms = this.symptoms;
+            await Navigation.PushAsync(new MedicationsPageView(this.dailyLog));
         }
 
         private async void OnBack()
         {
-            await Navigation.PushAsync(new LevelPageView());
+            await Navigation.PushAsync(new LevelPageView(this.dailyLog));
         }
 
         private void OnAddAnother()

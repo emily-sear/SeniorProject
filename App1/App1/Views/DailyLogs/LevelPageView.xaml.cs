@@ -12,12 +12,12 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LevelPageView : ContentPage
     {
-        public LevelPageView()
+        public LevelPageView(DailyLog dailyLog)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            BindingContext = new ViewModel.LevelPageViewModel(Navigation, this);
+            BindingContext = new ViewModel.LevelPageViewModel(Navigation, dailyLog, this);
         }
 
         public void yesButton_Clicked(object sender, EventArgs e)

@@ -12,12 +12,16 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ReviewPageView : ContentPage
     {
-        public ReviewPageView()
+        public ReviewPageView(DailyLog dailyLog)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            BindingContext = new ViewModel.ReviewPageViewModel(Navigation);
+            if(dailyLog == null)
+            {
+                dailyLog = new DailyLog();
+            }
+            BindingContext = new ViewModel.ReviewPageViewModel(Navigation, dailyLog);
         }
     }
 }

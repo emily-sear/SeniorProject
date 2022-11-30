@@ -22,7 +22,7 @@ namespace App1
             this.client = new HttpClient();
         }
 
-        public async Task<String> GetDailyLogDataAsync(String query)
+        public async Task<List<DailyLog>> GetDailyLogDataAsync(String query)
         {
             string url = "https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs";
             if (query != "")
@@ -34,28 +34,32 @@ namespace App1
             HttpResponseMessage response = await client.GetAsync(uri);
    
             var responseBody = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
-            Console.WriteLine(responseBody);
-/*            CalendarObject.fatigueScale =  responseBody["items"][0]["value"]["FatigueScale"].Value<Double>();
-            CalendarObject.moodScale = responseBody["items"][0]["value"]["MoodScale"].Value<Double>();
-            CalendarObject.painScale = responseBody["items"][0]["value"]["PainScale"].Value<Double>();
-            Console.WriteLine("Finished");*/
-            return "";
+            var items = (JArray)responseBody["items"];
+            if(items.Count == 0)
+            {
+                return new List<DailyLog>();
+            }
+            /*            CalendarObject.fatigueScale =  responseBody["items"][0]["value"]["FatigueScale"].Value<Double>();
+                        CalendarObject.moodScale = responseBody["items"][0]["value"]["MoodScale"].Value<Double>();
+                        CalendarObject.painScale = responseBody["items"][0]["value"]["PainScale"].Value<Double>();
+                        Console.WriteLine("Finished");*/
+            return new List<DailyLog>();
         }
-        public async Task<Boolean> PostDailyLogDataAsync()
+        public async Task<Boolean> PostDailyLogDataAsync(DailyLog dailyLog)
         {
             Uri uri = new Uri("https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs");
             StringContent content = new StringContent(JsonConvert.SerializeObject(new
             {
                 Email = "esear@cuw.edu",
-                OverallScale = DailyLog.OverallScale,
-                PainScale = DailyLog.PainScale,
-                MoodScale = DailyLog.MoodScale, 
-                FatigueScale = DailyLog.FatigueScale,
-                AvgHeartRate = DailyLog.AvgHeartRate,
-                OnPeriod = DailyLog.OnPeriod,
-                Datetime = DailyLog.CurrentDate,
-                Medications = DailyLog.Medications,
-                Symptoms = DailyLog.Symptoms
+                OverallScale = dailyLog.OverallScale,
+                PainScale = dailyLog.PainScale,
+                MoodScale = dailyLog.MoodScale, 
+                FatigueScale = dailyLog.FatigueScale,
+                AvgHeartRate = dailyLog.AvgHeartRate,
+                OnPeriod = dailyLog.OnPeriod,
+                Datetime = dailyLog.CurrentDate,
+                Medications = dailyLog.Medications,
+                Symptoms = dailyLog.Symptoms
 
             }), Encoding.UTF8, "application/json") ;
             HttpResponseMessage response = await client.PostAsync(uri, content);

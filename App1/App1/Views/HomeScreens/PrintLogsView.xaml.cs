@@ -18,6 +18,10 @@ namespace App1
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
             BindingContext = new ViewModel.PrintLogsViewModel(Navigation);
+            MessagingCenter.Subscribe<ViewModel.PrintLogsViewModel>(this, "PermissionsDenied", (sender) =>
+            {
+                DisplayAlert("Error", "In order to print daily logs to a PDF, you must accept all permissions requested. Please visit your settings and accept these permissions and try again.", "Ok");
+            });
         }
     }
 }

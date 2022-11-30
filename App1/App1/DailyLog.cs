@@ -4,26 +4,43 @@ using System.Text;
 
 namespace App1
 {
-    static class DailyLog
+    public class DailyLog
     {
-        public static Boolean ValuesSet { get; set; }
-        public static Boolean SymptomsSet { get; set; }
-        public static Boolean MedicationsSet { get; set; }
-        public static double PainScale { get; set; }
-        public static double MoodScale { get; set; }
-        public static double FatigueScale { get; set; }
-        public static double OverallScale { get; set; }
-        public static double AvgHeartRate { get; set; }
-        public static Boolean OnPeriod { get; set; }
-
-        public static List<SymptomDailyLog> Symptoms { get; set; }
-        public static List<MedicationDailyLog> Medications { get; set; }
-        public static DateTime CurrentDate 
+        public Boolean ValuesSet { get; set; }
+        public Boolean SymptomsSet { get; set; }
+        public Boolean MedicationsSet { get; set; }
+        private double painScale;
+        private double moodScale;
+        private double fatigueScale;
+        private double overallScale;
+        private double avgHeartRate;
+        private Boolean onPeriod;
+        private List<SymptomDailyLog> symptoms;
+        private List<MedicationDailyLog> medications;
+        public DateTime CurrentDate 
         { 
             get
             {
                 return DateTime.Today;
             } 
+        }
+
+        public double PainScale { get => painScale; set => painScale = value; }
+        public double MoodScale { get => moodScale; set => moodScale = value; }
+        public double FatigueScale { get => fatigueScale; set => fatigueScale = value; }
+        public double OverallScale { get => overallScale; set => overallScale = value; }
+        public double AvgHeartRate { get => avgHeartRate; set => avgHeartRate = value; }
+        public bool OnPeriod { get => onPeriod; set => onPeriod = value; }
+        internal List<SymptomDailyLog> Symptoms { get => symptoms; set => symptoms = value; }
+        internal List<MedicationDailyLog> Medications { get => medications; set => medications = value; }
+
+        public DailyLog()
+        {
+            this.Symptoms = new List<SymptomDailyLog>();
+            this.Medications = new List<MedicationDailyLog>();
+            this.SymptomsSet = false;
+            this.MedicationsSet = false;
+            this.ValuesSet = false;
         }
     }
 }

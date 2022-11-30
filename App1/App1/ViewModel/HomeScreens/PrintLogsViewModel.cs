@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using PdfSharpCore.Pdf;
 using PdfSharpCore.Drawing;
-using PdfSharp.Fonts;
-using PdfSharp.Internal;
-using PdfSharp.SharpZipLib;
+using PdfSharpCore.Fonts;
 using Xamarin.Forms;
 using System.IO;
 using Xamarin.Essentials;
+using PdfSharpCore.Drawing.Layout;
 
 [assembly: ExportFont("verdana.tff", Alias="Verdana")]
 
@@ -109,29 +109,40 @@ namespace App1.ViewModel
             Console.WriteLine(DateTime.Today);
             Console.WriteLine(this.endDate);
             Console.WriteLine(this.startDate);
-            /*            RestService restService = new RestService();
-                        await restService.GetDailyLogDataAsync("{\"Datetime\": { \"$date\": {\"$gt\":\"" + makePrettyDate(startDate, -1) + "\", \"$lt\": \"" + makePrettyDate(this.endDate, 1) + "\"}}}");*/
+            RestService restService = new RestService();
+            await restService.GetDailyLogDataAsync("{\"Datetime\": { \"$date\": {\"$gt\":\"" + makeRestDate(startDate, -1) + "\", \"$lt\": \"" + makeRestDate(this.endDate, 1) + "\"}}}");
+
+            
             var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
             if(status != PermissionStatus.Granted)
             {
                 var statusRequest = await Permissions.RequestAsync<Permissions.StorageWrite>();
-                
-             
-            }
-            status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
-            if(status != PermissionStatus.Granted)
-            {
-               var statusRequestRead = await Permissions.RequestAsync<Permissions.StorageRead>();
+                status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
             }
 
-            PdfDocument MyPDF = new PdfDocument();
-            PdfPage page = MyPDF.Pages.Add();
-            XGraphics Mygraphics = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Verdana", 100);
-            Mygraphics.DrawString("Hello, World!", font, XBrushes.Black,
-                new XRect(0, 0, page.Width, 0));
-            IFileService service = DependencyService.Get<IFileService>();
-            service.Save(MyPDF, "HelloWorld.pdf");
+            if(status == PermissionStatus.Granted)
+            {
+                PdfDocument pdf = new PdfDocument();
+                PdfPage page = pdf.Pages.Add();
+                XGraphics gfx = XGraphics.FromPdfPage(page);
+                this.DrawPDFTitleAndDate(gfx, page);
+                IFileService service = DependencyService.Get<IFileService>();
+                string pdfName = "";
+                if(!startDate.Equals(endDate))
+                {
+                   pdfName = "DailyLogs" + this.makePrettyDate(startDate) + "-" + this.makePrettyDate(endDate) + ".pdf";
+                }
+                else
+                {
+                    pdfName = "DailyLogs" + this.makePrettyDate(startDate) + ".pdf";
+                }
+                service.Save(pdf, pdfName);
+            }
+            else
+            {
+                MessagingCenter.Send<PrintLogsViewModel>(this, "PermissionsDenied");
+            }
+
 
         }
         private async void OnDailyLogs()
@@ -145,14 +156,38 @@ namespace App1.ViewModel
 
         private async void OnNewLogs()
         {
-            await Navigation.PushAsync(new LevelPageView());
+            await Navigation.PushAsync(new LevelPageView(new DailyLog()));
         }
         private async void OnSettings()
         { 
             await Navigation.PushAsync(new SettingsView());
         }
+
+        private void DrawPDFTitleAndDate(XGraphics gfx, PdfPage page)
+        {
+            XFont font = new XFont("Verdana", 40);
+            XStringFormat format = new XStringFormat();
+            XRect rect = new XRect(0, 0, page.Width, 0);
+            format.Alignment = XStringAlignment.Center;
+            gfx.DrawString("Chronically Tracking", font, XBrushes.Black, rect, format);
+            rect.Y += 50;
+            font = new XFont("Verdana", 20);
+            if(!startDate.Equals(endDate))
+            {
+                gfx.DrawString(this.makePrettyDate(startDate) + " - " + this.makePrettyDate(endDate), font, XBrushes.Black, rect, format);
+            }
+            else
+            {
+                gfx.DrawString(this.makePrettyDate(startDate), font, XBrushes.Black, rect, format);
+            }
+
+            rect.Y += 30;
+            XPen pen = new XPen(XColors.Black, 3);
+            gfx.DrawLine(pen, 0, rect.Y, page.Width, rect.Y);
+
+        }
        
-        private String makePrettyDate(DateTime oldDate, double addSubtract)
+        private String makeRestDate(DateTime oldDate, double addSubtract)
         {
             DateTime date = oldDate.AddDays(addSubtract);
             String dateString = date.Year + "-";
@@ -172,6 +207,31 @@ namespace App1.ViewModel
             {
                 dateString += date.Day;
             }
+            return dateString;
+        }
+
+        private String makePrettyDate(DateTime date)
+        {
+            String dateString = "";
+            if (date.Month < 10)
+            {
+                dateString += "0" + date.Month + "-";
+            }
+            else
+            {
+                dateString += date.Month + "-";
+            }
+
+            if (date.Day < 10)
+            {
+                dateString += "0" + date.Day + "-";
+            }
+            else
+            {
+                dateString += date.Day + "-";
+            }
+            dateString += date.Year;
+
             return dateString;
         }
     }

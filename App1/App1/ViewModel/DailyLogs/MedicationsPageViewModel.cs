@@ -83,12 +83,14 @@ namespace App1.ViewModel
                 OnPropertyChanged(propertyName: "MedicationsLabel");
             }
         }
+        private DailyLog dailyLog;
 
-        public MedicationsPageViewModel(INavigation navigation, MedicationsPageView medicationsPageView)
+        public MedicationsPageViewModel(INavigation navigation, DailyLog dailyLog, MedicationsPageView medicationsPageView)
         {
-            if(DailyLog.MedicationsSet)
+            this.dailyLog = dailyLog;
+            if(dailyLog.MedicationsSet)
             {
-                foreach (MedicationDailyLog med in DailyLog.Medications)
+                foreach (MedicationDailyLog med in dailyLog.Medications)
                 {
                     this.MedicationsLabel = med.MedicationName;
                 }
@@ -110,14 +112,14 @@ namespace App1.ViewModel
                 MedicationDailyLog med = new MedicationDailyLog(this.medicationName, this.timeTaken, this.dosage, this.dailyMed, this.notes);
                 this.medications.Add(med);
             }
-            DailyLog.MedicationsSet = true;
-            DailyLog.Medications = this.medications;
-            await Navigation.PushAsync(new ReviewPageView());
+            dailyLog.MedicationsSet = true;
+            dailyLog.Medications = this.medications;
+            await Navigation.PushAsync(new ReviewPageView(dailyLog));
         }
 
         private async void OnBack()
         {
-            await Navigation.PushAsync(new SymptomsPageView());
+            await Navigation.PushAsync(new SymptomsPageView(this.dailyLog));
         }
 
         private void OnYes()

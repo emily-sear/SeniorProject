@@ -12,12 +12,16 @@ namespace App1
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MedicationsPageView : ContentPage
     {
-        public MedicationsPageView()
+        public MedicationsPageView(DailyLog dailyLog)
         {
             NavigationPage.SetHasNavigationBar(this, false);
             NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            BindingContext = new ViewModel.MedicationsPageViewModel(Navigation, this);
+            if(dailyLog == null)
+            {
+                dailyLog = new DailyLog();
+            }
+            BindingContext = new ViewModel.MedicationsPageViewModel(Navigation, dailyLog, this);
         }
         private void yesButton_Clicked(object sender, EventArgs e)
         {

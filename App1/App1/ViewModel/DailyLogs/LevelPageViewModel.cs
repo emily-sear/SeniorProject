@@ -13,6 +13,7 @@ namespace App1.ViewModel
         private double overallScale;
         private double avgHeartRate;
         private Boolean onPeriod;
+        private DailyLog dailyLog;
 
         private LevelPageView levelPageView;
         public INavigation Navigation { get; }
@@ -93,20 +94,21 @@ namespace App1.ViewModel
             }
         }
 
-        public LevelPageViewModel(INavigation navigation, LevelPageView levelPageView)
+        public LevelPageViewModel(INavigation navigation, DailyLog dailyLog, LevelPageView levelPageView)
         {
             this.levelPageView = levelPageView;
-            if (DailyLog.ValuesSet)
+            this.dailyLog = dailyLog;
+            if (dailyLog.ValuesSet)
             {
-                PainScale = DailyLog.PainScale;
-                MoodScale = DailyLog.MoodScale;
-                FatigueScale = DailyLog.FatigueScale;
-                OverallScale = DailyLog.OverallScale;
-                if(DailyLog.AvgHeartRate != 0)
+                PainScale = dailyLog.PainScale;
+                MoodScale = dailyLog.MoodScale;
+                FatigueScale = dailyLog.FatigueScale;
+                OverallScale = dailyLog.OverallScale;
+                if(dailyLog.AvgHeartRate != 0)
                 {
-                    AvgHeartRate = DailyLog.AvgHeartRate;
+                    AvgHeartRate = dailyLog.AvgHeartRate;
                 }
-                OnPeriod = DailyLog.OnPeriod;
+                OnPeriod = dailyLog.OnPeriod;
             } 
             this.Navigation = navigation;
             NextCommand = new Command(OnNext);
@@ -116,14 +118,14 @@ namespace App1.ViewModel
 
         private async void OnNext()
         {
-            DailyLog.PainScale = this.painScale;
-            DailyLog.MoodScale = this.moodScale;
-            DailyLog.FatigueScale = this.fatigueScale;
-            DailyLog.OverallScale = this.overallScale;
-            DailyLog.AvgHeartRate = this.avgHeartRate;
-            DailyLog.OnPeriod = this.onPeriod;
-            DailyLog.ValuesSet = true;
-            await Navigation.PushAsync(new SymptomsPageView());
+            this.dailyLog.PainScale = this.painScale;
+            this.dailyLog.MoodScale = this.moodScale;
+            this.dailyLog.FatigueScale = this.fatigueScale;
+            this.dailyLog.OverallScale = this.overallScale;
+            this.dailyLog.AvgHeartRate = this.avgHeartRate;
+            this.dailyLog.OnPeriod = this.onPeriod;
+            this.dailyLog.ValuesSet = true;
+            await Navigation.PushAsync(new SymptomsPageView(this.dailyLog));
         }
 
         private void OnYes()
