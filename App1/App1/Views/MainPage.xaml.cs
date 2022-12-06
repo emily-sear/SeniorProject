@@ -13,17 +13,7 @@ namespace App1
         public MainPage()
         {
             InitializeComponent();
-        }
-
-        private async void LoginButtonClicked(object sender, EventArgs e)
-        {
-            RestService restService = new RestService();
-            await Navigation.PushAsync(new HomescreenView());
-        }
-
-        private async void CreateNewAccountButtonClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SignUpPersonalDetailsPage());
+            BindingContext = new ViewModel.MainPageViewModel(Navigation);
         }
     }
 }

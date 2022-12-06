@@ -18,11 +18,9 @@ namespace App1
         private List<SymptomDailyLog> symptoms;
         private List<MedicationDailyLog> medications;
         public DateTime CurrentDate 
-        { 
-            get
-            {
-                return DateTime.Today;
-            } 
+        {
+            get;
+            set;
         }
 
         public double PainScale { get => painScale; set => painScale = value; }

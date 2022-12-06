@@ -17,20 +17,9 @@
             </StackLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand" Spacing="40">
-                    <Label Text="Check all below that you want to include in your print." HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                        <StackLayout>
-                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding OverviewCheckChanged}"/>
-                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding DailyOverviewCheckChanged}"/>
-                            <CheckBox Color="Black" Scale="1.5" IsChecked="{Binding DailyIndepthCheckChanged}"/>
-                        </StackLayout>
-                        <StackLayout>
-                            <Label Text="Overview" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
-                            <Label Text="Daily logs - Overviews" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
-                            <Label Text="Daily logs - Indepth" TextColor="Black" VerticalOptions="Center" FontSize="Title"/>
-                        </StackLayout>
-                    </StackLayout>
-                
+                <Label Text="Please go to the files folder of your phone and find a folder labeled 'DailyLogs'." HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" FontSize="Title"/>
+                <Label Text="Today's log will be labeled with the start date first and the end date second." HorizontalTextAlignment="Center" HorizontalOptions="Center" TextColor="Black" FontSize="Subtitle"/>
+
             </StackLayout>
 
 

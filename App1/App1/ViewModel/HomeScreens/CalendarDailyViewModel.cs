@@ -9,7 +9,7 @@ namespace App1.ViewModel
     class CalendarDailyViewModel : ViewModel.BaseViewModel
     {
 
-        private String selectedDate;
+        private DateTime selectedDate;
         private double painAmount;
         private double moodAmount;
         private double fatigueAmount;
@@ -60,10 +60,14 @@ namespace App1.ViewModel
         {
             get => DateTime.Today.AddYears(-2).ToString();
         }
-        public String SelectedDate
+        public DateTime SelectedDate
         {
             get => this.selectedDate;
-            set => this.selectedDate = value;
+            set
+            {
+                this.selectedDate = value;
+                this.getDailyLog();
+            }
         }
         public Command DateChosen { get; }
         public DateTime StartDate
@@ -76,25 +80,57 @@ namespace App1.ViewModel
         public CalendarDailyViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
-            this.selectedDate = DateTime.Today.ToString();
+            this.selectedDate = DateTime.Today;
             OnPropertyChanged(propertyName: "SelectedDate");
             SettingsCommand = new Command(OnSettings);
             NewLogCommand = new Command(OnNewLogs);
             HomescreenCommand = new Command(OnHome);
             PrintLogsCommand = new Command(OnPrintLogs);
             DateChosen = new Command(OnDateChosen);
-
-
         }
 
         public async void getDailyLog()
         {
-            RestService restService = new RestService();
-            await restService.GetDailyLogDataAsync("{\"Email\": \"esear@cuw.edu\"}");
-            this.FatigueAmount = CalendarObject.fatigueScale;
-            this.MoodAmount = CalendarObject.moodScale;
-            this.PainAmount = CalendarObject.painScale;
 
+            RestService restService = new RestService();
+            List<DailyLog> dailyLogs = await restService.GetDailyLogDataAsync("{\"$and\":[{\"Datetime\": { \"$date\": \"" + makeRestDate(this.selectedDate, 0) + "\"}},{\"Email\":\"" + User.email + "\"}]}");
+            if(dailyLogs.Count > 0)
+            {
+                this.FatigueAmount = dailyLogs[0].FatigueScale;
+                this.MoodAmount = dailyLogs[0].MoodScale;
+                this.PainAmount = dailyLogs[0].PainScale;
+            } else
+            {
+                this.FatigueAmount = 0;
+                this.MoodAmount = 0;
+                this.PainAmount = 0;
+            }
+            OnPropertyChanged(propertyName: "FatigueAmount");
+            OnPropertyChanged(propertyName: "MoodAmount");
+            OnPropertyChanged(propertyName: "PainAmount");
+        }
+        private String makeRestDate(DateTime oldDate, double addSubtract)
+        {
+            DateTime date = oldDate.AddDays(addSubtract);
+            String dateString = date.Year + "-";
+            if (date.Month < 10)
+            {
+                dateString += "0" + date.Month + "-";
+            }
+            else
+            {
+                dateString += date.Month + "-";
+            }
+
+            if (date.Day < 10)
+            {
+                dateString += "0" + date.Day;
+            }
+            else
+            {
+                dateString += date.Day;
+            }
+            return dateString;
         }
         private void OnDateChosen()
         {

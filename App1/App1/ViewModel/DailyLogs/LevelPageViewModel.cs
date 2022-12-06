@@ -18,6 +18,7 @@ namespace App1.ViewModel
         private LevelPageView levelPageView;
         public INavigation Navigation { get; }
         public Command NextCommand { get; }
+        public Command BackCommand { get; }
         public Command YesCommand { get; }
         public Command NoCommand { get; }
         public double PainScale
@@ -114,8 +115,12 @@ namespace App1.ViewModel
             NextCommand = new Command(OnNext);
             YesCommand = new Command(OnYes);
             NoCommand = new Command(OnNo);
+            BackCommand = new Command(OnBack);
         }
-
+        private async void OnBack()
+        {
+            await Navigation.PushAsync(new HomescreenView());
+        }
         private async void OnNext()
         {
             this.dailyLog.PainScale = this.painScale;

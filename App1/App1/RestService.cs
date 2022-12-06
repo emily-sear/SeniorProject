@@ -32,25 +32,80 @@ namespace App1
             Uri uri = new Uri(url);
             Console.WriteLine(url);
             HttpResponseMessage response = await client.GetAsync(uri);
-   
+            
             var responseBody = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+            Console.WriteLine(responseBody);
             var items = (JArray)responseBody["items"];
             if(items.Count == 0)
             {
                 return new List<DailyLog>();
             }
-            /*            CalendarObject.fatigueScale =  responseBody["items"][0]["value"]["FatigueScale"].Value<Double>();
-                        CalendarObject.moodScale = responseBody["items"][0]["value"]["MoodScale"].Value<Double>();
-                        CalendarObject.painScale = responseBody["items"][0]["value"]["PainScale"].Value<Double>();
-                        Console.WriteLine("Finished");*/
-            return new List<DailyLog>();
+            List<DailyLog> dailyLogs = new List<DailyLog>();
+            foreach(var item in items)
+            {
+                DailyLog dailyLog = new DailyLog();
+                dailyLog.OverallScale = (Double)item["value"]["OverallScale"];
+                dailyLog.PainScale = (Double)item["value"]["PainScale"];
+                dailyLog.MoodScale = (Double)item["value"]["MoodScale"];
+                dailyLog.FatigueScale = (Double)item["value"]["FatigueScale"];
+                dailyLog.AvgHeartRate = (Double)item["value"]["AvgHeartRate"];
+                dailyLog.OnPeriod = (Boolean)item["value"]["OnPeriod"];
+                dailyLog.CurrentDate = (DateTime)item["value"]["Datetime"];
+
+                foreach(var medication in item["value"]["Medications"])
+                {
+                    MedicationDailyLog med = new MedicationDailyLog((string)medication["MedicationName"], (string)medication["TimeTaken"], (string) medication["Dosage"], (bool)medication["DailyMed"], (string) medication["Notes"]);
+                    dailyLog.Medications.Add(med);
+                }
+
+                foreach(var sym in item["value"]["Symptoms"])
+                {
+                    SymptomDailyLog symptom = new SymptomDailyLog((string)sym["NameOfSymptom"], (double)sym["Severeness"], (string)sym["Timeframe"], (Boolean)sym["ContinueWithDailyLife"], (string)sym["AreaOfBody"], (string)sym["Notes"]);
+                    dailyLog.Symptoms.Add(symptom);
+                }
+                dailyLogs.Add(dailyLog);
+            }
+            return dailyLogs;
+        }
+        public async Task<Boolean> SignUserIn(String email)
+        {
+            Uri uri = new Uri("https://ga0f66930313625-userdatabase.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/account/user/" + email);
+            HttpResponseMessage response = await client.GetAsync(uri);
+            if(response.IsSuccessStatusCode)
+            {
+                var responseBody = (JObject)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result);
+                Console.WriteLine(responseBody);
+                var items = (JArray)responseBody["items"];
+                if(items.Count == 1)
+                {
+                    User.firstName = (string)items[0]["first_name"];
+                    User.lastName = (string)items[0]["last_name"];
+                    User.email = (string)items[0]["email"];
+                    if ((string)items[0]["user_type"] == "PATIENT")
+                    {
+                        User.userType = User.userTypes.PATIENT;
+                    }
+                    else if ((string)items[0]["user_type"] == "CAREGIVER")
+                    {
+                        User.userType = User.userTypes.CAREGIVER;
+                    }
+                    else
+                    {
+                        User.userType = User.userTypes.OTHER;
+                    }
+                    User.inDatabase = true;
+                    return true;
+                }
+            }
+            return false;
+
         }
         public async Task<Boolean> PostDailyLogDataAsync(DailyLog dailyLog)
         {
             Uri uri = new Uri("https://ga0f66930313625-chronicallytrackingdailylogs.adb.us-phoenix-1.oraclecloudapps.com/ords/admin/soda/latest/DailyLogs");
             StringContent content = new StringContent(JsonConvert.SerializeObject(new
             {
-                Email = "esear@cuw.edu",
+                Email = User.email,
                 OverallScale = dailyLog.OverallScale,
                 PainScale = dailyLog.PainScale,
                 MoodScale = dailyLog.MoodScale, 

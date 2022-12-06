@@ -77,6 +77,7 @@ namespace App1.ViewModel
         private async void OnSubmit()
         {
             RestService restService = new RestService();
+            this.dailyLog.CurrentDate = DateTime.Today;
             await restService.PostDailyLogDataAsync(this.dailyLog);
             await Navigation.PushAsync(new HomescreenView());
         }

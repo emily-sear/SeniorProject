@@ -22,6 +22,16 @@ namespace App1
             {
                 DisplayAlert("Error", "In order to print daily logs to a PDF, you must accept all permissions requested. Please visit your settings and accept these permissions and try again.", "Ok");
             });
+
+            MessagingCenter.Subscribe<ViewModel.PrintLogsViewModel>(this, "LogPrinted", (sender) =>
+            {
+                DisplayAlert("Success", "Your pdf of logs was successfully printed, please visit the files application of your device to view your logs.", "Ok");
+            });
+
+            MessagingCenter.Subscribe<ViewModel.PrintLogsViewModel>(this, "NoLogs", (sender) =>
+            {
+                DisplayAlert("No Logs Found", "No logs were found with the dates selected. Please change the dates selected.", "Ok");
+            });
         }
     }
 }

@@ -19,12 +19,13 @@ namespace App1.Droid
     {
         public void Save(PdfDocument pdf, string name, string location = "temp")
         {
-            string root = Android.OS.Environment.ExternalStorageDirectory.ToString();
+            string root = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
             string filePath = "";
-            if(!Directory.Exists(root + "/DailyLogs"))
+            if (!Directory.Exists(root + "/DailyLogs"))
             {
                 Java.IO.File dailyLogsDir = new Java.IO.File(root + "/DailyLogs");
-                dailyLogsDir.Mkdir();
+                dailyLogsDir.Mkdirs();
+                Console.WriteLine(dailyLogsDir.Exists());
                 filePath = Path.Combine(dailyLogsDir.Path, name);
             }
             else
@@ -32,8 +33,6 @@ namespace App1.Droid
                 string temp = root + "/DailyLogs";
                 filePath = Path.Combine(temp, name);
             }
-
-
              
             pdf.Save(filePath);
             

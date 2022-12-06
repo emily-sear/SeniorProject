@@ -13,8 +13,8 @@ namespace App1
         public static string lastName { get; set; }
         public static string email 
         { 
-            get => "esear@cuw.edu";
-            set => email = value;
+            get;
+            set;
         }
         public static userTypes userType;
         public static Boolean inDatabase { get; set; }

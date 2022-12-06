@@ -10,10 +10,10 @@
             <Label Text="Login" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="Black" FontSize="Title" BackgroundColor="lightgray" WidthRequest="1000" />
         </StackLayout>
         <StackLayout VerticalOptions="Center">
-            <Entry Placeholder="Email"></Entry>
+            <Entry Placeholder="Email" Text="{Binding Email}"></Entry>
             <Entry Placeholder="Password" IsPassword="True"></Entry>
-            <Button Text="Login" TextColor="White" BackgroundColor="Black" IsEnabled="True" Clicked="LoginButtonClicked"/>
-            <Button Text="Create a new account" TextColor="Blue" BackgroundColor="Transparent" Clicked="CreateNewAccountButtonClicked"/>
+            <Button Text="Login" TextColor="White" BackgroundColor="Black" IsEnabled="True" Command="{Binding SubmitCommand}"/>
+            <Button Text="Create a new account" TextColor="Blue" BackgroundColor="Transparent" Command="{Binding CreateNewAccountCommand}"/>
         </StackLayout>
     </Grid>
 

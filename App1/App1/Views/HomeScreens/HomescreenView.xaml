@@ -7,20 +7,20 @@
             <StackLayout Spacing="50">
                 <StackLayout/>
                 <StackLayout>
-                    <Label Text="Most common symptom this week:" TextColor="Black" FontSize="Title"/>
-                    <Label Text="{Binding MostCommonSymptom}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                    <Label Text="Average overall rating of this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgOverall, Mode=TwoWay}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
                 </StackLayout>
                 <StackLayout>
                     <Label Text="Average amount of pain this week:" TextColor="Black" FontSize="Title"/>
-                    <Label Text="{Binding AvgAmtOfPain}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                    <Label Text="{Binding AvgAmtOfPain, Mode=TwoWay}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Average mood of this week:" TextColor="Black" FontSize="Title"/>
-                    <Label Text="{Binding AvgMood}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                    <Label Text="Average mood rating of this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgMood, Mode=TwoWay}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
                 </StackLayout>
                 <StackLayout>
-                    <Label Text="Average amount of fatigue this week:" TextColor="Black" FontSize="Title"/>
-                    <Label Text="{Binding AvgFatigue}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
+                    <Label Text="Average fatigue rating this week:" TextColor="Black" FontSize="Title"/>
+                    <Label Text="{Binding AvgFatigue, Mode=TwoWay}" TextColor="Black" FontSize="Title" HorizontalTextAlignment="Center" BackgroundColor="LightGray"/>
                 </StackLayout>
                 
             </StackLayout>
