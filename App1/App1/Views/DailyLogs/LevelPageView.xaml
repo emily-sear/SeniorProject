@@ -11,35 +11,35 @@
             </StackLayout>
 
 
-                <StackLayout Spacing="15" VerticalOptions="Center">
-                    <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="On a scale of 0 - 10, with 0 being the best, what are your levels today?" TextColor="Black" FontSize="Medium"/>
-                    <StackLayout Spacing="1" Margin="5,0,5,0">
-                        <Label Text="Pain Level" TextColor="Black" FontSize="Medium"/>
-                        <Grid>
-                            <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
-                            <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
-                        </Grid>
+            <StackLayout Spacing="10" VerticalOptions="Center">
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="On a scale of 0 - 10, with 0 being the best, what are your levels today?" TextColor="Black" FontSize="Medium"/>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Pain Level" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
 
-                        <Slider Minimum="0" Maximum="10" Value="{Binding PainScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray"/>
-                    </StackLayout>
-                    <StackLayout Spacing="1" Margin="5,0,5,0">
-                        <Label Text="Mood Level" TextColor="Black" FontSize="Medium"/>
-                        <Grid>
-                            <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
-                            <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
-                        </Grid>
+                    <Slider Minimum="0" Maximum="10" Value="{Binding PainScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray"/>
+                </StackLayout>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Mood Level" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
 
-                        <Slider Minimum="0" Maximum="10" Value="{Binding MoodScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
-                    </StackLayout>
-                    <StackLayout Spacing="1" Margin="5,0,5,0">
-                        <Label Text="Fatigue Level" TextColor="Black" FontSize="Medium"/>
-                        <Grid>
-                            <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
-                            <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
-                        </Grid>
+                    <Slider Minimum="0" Maximum="10" Value="{Binding MoodScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
+                <StackLayout Spacing="1" Margin="5,0,5,0">
+                    <Label Text="Fatigue Level" TextColor="Black" FontSize="Medium"/>
+                    <Grid>
+                        <Label Text="0" HorizontalOptions="Start" Margin="10,0,0,0"/>
+                        <Label Text="10" HorizontalOptions="End" Margin="0,0,10,0"/>
+                    </Grid>
 
-                        <Slider Minimum="0" Maximum="10" Value="{Binding FatigueScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
-                    </StackLayout>
+                    <Slider Minimum="0" Maximum="10" Value="{Binding FatigueScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                </StackLayout>
                 <StackLayout Spacing="1" Margin="5,0,5,0">
                     <Label Text="Overall Level" TextColor="Black" FontSize="Medium"/>
                     <Grid>
@@ -48,21 +48,20 @@
                     </Grid>
 
                     <Slider Minimum="0" Maximum="10" Value="{Binding OverallScale}" MinimumTrackColor="Black" MaximumTrackColor="Gray" />
+                    
                 </StackLayout>
                 <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="Are you on your period?" TextColor="Black" FontSize="Medium"/>
-                    <StackLayout Orientation="Horizontal" Spacing="50" HorizontalOptions="Center">
-                        <Button x:Name="yesButton" BackgroundColor="LightGray" Text="Yes" TextColor="Black" BorderWidth="2" Clicked="yesButton_Clicked"  Command="{Binding YesCommand}"/>
-                        <Button x:Name="noButton" BackgroundColor="LightGray" Text="No" TextColor="Black" BorderWidth="2" Clicked="noButton_Clicked" Command="{Binding NoCommand}"/>
-                    </StackLayout>
-                    <Entry Placeholder="Average heart rate" Text="{Binding AvgHeartRate}"/>
+                <StackLayout Orientation="Horizontal" Spacing="50" HorizontalOptions="Center">
+                    <Button x:Name="yesButton" BackgroundColor="LightGray" Text="Yes" TextColor="Black" BorderWidth="1" Clicked="yesButton_Clicked"  Command="{Binding YesCommand}"/>
+                    <Button x:Name="noButton" BackgroundColor="LightGray" Text="No" TextColor="Black" BorderWidth="1" Clicked="noButton_Clicked" Command="{Binding NoCommand}"/>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal" VerticalOptions="End">
-                    <Button BackgroundColor="LightGray" Text="Back" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
-                    <Button BackgroundColor="LightGray" Text="Next" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding NextCommand}" />
-                </StackLayout>
-            </Grid>
-
-
-
+                <Label Text="Average heart rate" TextColor="Black" FontSize="Medium"/>
+                <Entry Placeholder="Average heart rate" Text="{Binding AvgHeartRate}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="End">
+                <Button BackgroundColor="LightGray" Text="Back" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding BackCommand}"/>
+                <Button BackgroundColor="LightGray" Text="Next" TextColor="Black" HorizontalOptions="FillAndExpand" Command="{Binding NextCommand}" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

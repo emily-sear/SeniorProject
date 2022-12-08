@@ -34,7 +34,7 @@
                         </StackLayout>
                         <StackLayout>
                             <Label Text="Notes" FontSize="Medium" TextColor="Black"/>
-                            <Editor AutoSize="TextChanges" MaxLength="300"/>
+                            <Editor AutoSize="TextChanges" Text="{Binding Notes, Mode=TwoWay}" MaxLength="300"/>
                         </StackLayout>
 
                     </StackLayout>
